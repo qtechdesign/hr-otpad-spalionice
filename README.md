@@ -16,6 +16,25 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+## Push na GitHub (bez admin prava na PC-u)
+
+1. Na [github.com/new](https://github.com/new) kreiraj **private** repozitorij (npr. `hr-otpad-spalionice`), **bez** README/licence (repo mora biti prazan).
+2. U PowerShellu u mapi projekta:
+
+```powershell
+git remote add origin https://github.com/TVOJ_USER/hr-otpad-spalionice.git
+git push -u origin main
+```
+
+Prijava: GitHub browser login ili Personal Access Token (repo scope).
+
+## Streamlit Community Cloud
+
+1. [share.streamlit.io](https://share.streamlit.io) → **New app** → odaberi repo i granu `main`.
+2. **Main file path:** `app.py`
+3. **Requirements:** `requirements.txt` (automatski)
+4. Deploy — aplikacija ne treba tajne (`secrets.toml` nije potreban).
+
 ## Testovi
 
 ```bash
