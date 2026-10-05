@@ -1,0 +1,10 @@
+kategorija_id,kategorija_hr,udio_2022,masa_t_2022,ukljuci_u_model,r1_eligible_default
+mineralni,Mineralni otpad uklj. građevinski otpad zemlju i kamenje,0.301,2133755,true,false
+kucanstva,"Otpad iz kućanstva i sličan (miješani komunalni, glomazni, čišćenje ulica)",0.162,1148801,true,true
+metali_zeljezo,Otpadni željezni metali,0.143,1013616,true,false
+fekalije,Životinjske fekalije urin i gnojivo,0.086,609645,true,false
+papir_karton,Otpad od papira i kartona,0.067,474956,true,false
+plastika,Otpad od plastike,0.055,389889,true,true
+drvo,Otpad od drva,0.048,340267,true,true
+opasni,Opasni otpad (agregat),0.045,319000,true,false
+ostali_neopasni,Ostali neopasni industrijski i gospodarski otpad,0.093,659263,true,true

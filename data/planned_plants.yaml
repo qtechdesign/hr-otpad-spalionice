@@ -1,0 +1,15 @@
+plants:
+  - id: bikarc_efw
+    naziv: Energana CGO Bikarac (planirano)
+    lokacija: Šibenik / Bikarac
+    kapacitet_kt_a: 100
+    status: planirano
+    ukljuci_u_izracun: true
+    napomena: "Prva planirana EfW u RH; gorivo iz više dalmatinskih CGO (>100 kt/a referenca)"
+  - id: rezervni_placeholder
+    naziv: Rezervni slot (nedefinirano)
+    lokacija: —
+    kapacitet_kt_a: 0
+    status: ideja
+    ukljuci_u_izracun: false
+    napomena: "Placeholder za buduće projekte iz Plan gospodarenja otpadom"
