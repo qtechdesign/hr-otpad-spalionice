@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 
+import sys
 from datetime import date
+from pathlib import Path
+
+_ROOT = Path(__file__).resolve().parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 import pandas as pd
 import plotly.express as px
@@ -251,7 +257,7 @@ def _page_overview(classification, sizing, scenario, target_year, hubs, params):
         values="Masa (t/a)",
         title="Raspodjela po rutama gospodarenja",
     )
-    st.plotly_chart(fig_routes, width="stretch", config=PLOTLY_CONFIG)
+    st.plotly_chart(fig_routes, use_container_width=True, config=PLOTLY_CONFIG)
 
     st.subheader("Izvoz rezultata")
     export_csv = classification.by_category.to_csv(index=False).encode("utf-8")
@@ -282,9 +288,9 @@ def _page_types(categories, classification, routing, scenario):
         title="Nastali otpad po kategorijama",
     )
     fig_bar.update_layout(xaxis_tickangle=-35)
-    st.plotly_chart(fig_bar, width="stretch", config=PLOTLY_CONFIG)
+    st.plotly_chart(fig_bar, use_container_width=True, config=PLOTLY_CONFIG)
 
-    st.dataframe(classification.by_category, width="stretch", hide_index=True)
+    st.dataframe(classification.by_category, use_container_width=True, hide_index=True)
 
     with st.expander("Prilagodi routing za odabranu kategoriju (napredno)"):
         cat_ids = list(routing.keys())
@@ -320,7 +326,7 @@ def _page_municipal(ref, categories, target_year):
             labels={"nastalo_t": "Nastalo (t/a)", "godina": "Godina"},
             title="Nastali komunalni otpad u RH",
         )
-        st.plotly_chart(fig_m, width="stretch", config=PLOTLY_CONFIG)
+        st.plotly_chart(fig_m, use_container_width=True, config=PLOTLY_CONFIG)
 
     m2024 = ref["municipal"].query("godina == 2024")
     if len(m2024):
@@ -357,7 +363,7 @@ def _page_plants(ref, sizing, plant_capacity_kt, utilization):
     )
 
     st.markdown("#### Planirana / referentna postrojenja")
-    st.dataframe(pd.DataFrame(ref["plants"]), width="stretch", hide_index=True)
+    st.dataframe(pd.DataFrame(ref["plants"]), use_container_width=True, hide_index=True)
 
     load_df = pd.DataFrame(
         {
@@ -366,7 +372,7 @@ def _page_plants(ref, sizing, plant_capacity_kt, utilization):
         }
     )
     fig_load = px.bar(load_df, x="Stavka", y="t/a", title="Opterećenje vs planirani kapacitet")
-    st.plotly_chart(fig_load, width="stretch", config=PLOTLY_CONFIG)
+    st.plotly_chart(fig_load, use_container_width=True, config=PLOTLY_CONFIG)
 
 
 def _page_regions(ref, q_for_regions, hubs):
@@ -374,7 +380,7 @@ def _page_regions(ref, q_for_regions, hubs):
     counties_alloc = allocate_r1_by_county(q_for_regions, ref["counties"])
     st.dataframe(
         counties_alloc.sort_values("q_r1_alloc_t", ascending=False),
-        width="stretch",
+        use_container_width=True,
         hide_index=True,
     )
 
@@ -388,7 +394,7 @@ def _page_regions(ref, q_for_regions, hubs):
         for h in hubs
     ]
     st.markdown("#### Regionalni čvorovi (heuristika)")
-    st.dataframe(pd.DataFrame(hub_rows), width="stretch", hide_index=True)
+    st.dataframe(pd.DataFrame(hub_rows), use_container_width=True, hide_index=True)
 
     fig_reg = px.bar(
         pd.DataFrame(hub_rows),
@@ -397,7 +403,7 @@ def _page_regions(ref, q_for_regions, hubs):
         title="Alokacija R1 po regijama",
     )
     fig_reg.update_layout(xaxis_tickangle=-25)
-    st.plotly_chart(fig_reg, width="stretch", config=PLOTLY_CONFIG)
+    st.plotly_chart(fig_reg, use_container_width=True, config=PLOTLY_CONFIG)
 
 
 def _page_methodology():
