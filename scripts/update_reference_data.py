@@ -20,13 +20,13 @@ Izvori (provjeriti najnovije verzije na https://isgo-portal.haop.hr/):
    - Stupci: zupanija, nastalo_t_2024, odlaganje_t_2024, regija_id
    - regija_id: zagreb | istok | jug | jadran | split (heurističke regije za prijedlog hubova)
 
-4. data/planned_plants.yaml
+4. data/planned_plants.json (i opcionalno .yaml za ručni export)
    - Ručno dodati planirane/operativne energane (kapacitet_kt_a, status, ukljuci_u_izracun)
 
-5. data/routing_defaults.yaml
+5. data/routing_defaults.json
    - Prilagoditi base udjele ili scenarije nakon promjene politike / recikliranja
 
-Nakon uređivanja CSV/YAML pokrenite aplikaciju i usporedite KPI s ISGO izvješćem.
+Nakon uređivanja CSV/JSON pokrenite aplikaciju i usporedite KPI s ISGO izvješćem.
 """
 
 from pathlib import Path

@@ -1,0 +1,124 @@
+{
+  "base": {
+    "mineralni": {
+      "recikliranje": 0.15,
+      "kompost_mbo": 0.0,
+      "r1": 0.0,
+      "odlaganje": 0.8,
+      "ostalo": 0.05
+    },
+    "kucanstva": {
+      "recikliranje": 0.37,
+      "kompost_mbo": 0.12,
+      "r1": 0.02,
+      "odlaganje": 0.45,
+      "ostalo": 0.04
+    },
+    "metali_zeljezo": {
+      "recikliranje": 0.92,
+      "kompost_mbo": 0.0,
+      "r1": 0.0,
+      "odlaganje": 0.05,
+      "ostalo": 0.03
+    },
+    "fekalije": {
+      "recikliranje": 0.0,
+      "kompost_mbo": 0.35,
+      "r1": 0.0,
+      "odlaganje": 0.55,
+      "ostalo": 0.1
+    },
+    "papir_karton": {
+      "recikliranje": 0.72,
+      "kompost_mbo": 0.0,
+      "r1": 0.05,
+      "odlaganje": 0.18,
+      "ostalo": 0.05
+    },
+    "plastika": {
+      "recikliranje": 0.28,
+      "kompost_mbo": 0.0,
+      "r1": 0.35,
+      "odlaganje": 0.3,
+      "ostalo": 0.07
+    },
+    "drvo": {
+      "recikliranje": 0.2,
+      "kompost_mbo": 0.25,
+      "r1": 0.25,
+      "odlaganje": 0.25,
+      "ostalo": 0.05
+    },
+    "opasni": {
+      "recikliranje": 0.1,
+      "kompost_mbo": 0.0,
+      "r1": 0.0,
+      "odlaganje": 0.0,
+      "ostalo": 0.9
+    },
+    "ostali_neopasni": {
+      "recikliranje": 0.25,
+      "kompost_mbo": 0.1,
+      "r1": 0.35,
+      "odlaganje": 0.25,
+      "ostalo": 0.05
+    }
+  },
+  "scenarios": {
+    "status_quo_2024": {
+      "kucanstva": {
+        "recikliranje": 0.37,
+        "kompost_mbo": 0.12,
+        "r1": 0.015,
+        "odlaganje": 0.51,
+        "ostalo": 0.085
+      }
+    },
+    "eu_smer": {
+      "kucanstva": {
+        "recikliranje": 0.55,
+        "kompost_mbo": 0.15,
+        "r1": 0.12,
+        "odlaganje": 0.15,
+        "ostalo": 0.03
+      },
+      "papir_karton": {
+        "recikliranje": 0.8,
+        "kompost_mbo": 0.0,
+        "r1": 0.08,
+        "odlaganje": 0.08,
+        "ostalo": 0.04
+      },
+      "plastika": {
+        "recikliranje": 0.4,
+        "kompost_mbo": 0.0,
+        "r1": 0.4,
+        "odlaganje": 0.15,
+        "ostalo": 0.05
+      }
+    },
+    "agresivno_r1": {
+      "kucanstva": {
+        "recikliranje": 0.45,
+        "kompost_mbo": 0.1,
+        "r1": 0.3,
+        "odlaganje": 0.12,
+        "ostalo": 0.03
+      },
+      "plastika": {
+        "recikliranje": 0.3,
+        "kompost_mbo": 0.0,
+        "r1": 0.55,
+        "odlaganje": 0.1,
+        "ostalo": 0.05
+      },
+      "ostali_neopasni": {
+        "recikliranje": 0.2,
+        "kompost_mbo": 0.05,
+        "r1": 0.55,
+        "odlaganje": 0.15,
+        "ostalo": 0.05
+      }
+    }
+  }
+}

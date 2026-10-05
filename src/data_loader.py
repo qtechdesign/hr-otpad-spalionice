@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+import json
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
 import pandas as pd
-import yaml
 
 from src.constants import DATA_DIR, SCENARIO_STATUS_QUO
 
@@ -44,16 +44,19 @@ def load_counties_municipal() -> pd.DataFrame:
     return df
 
 
-def load_routing_yaml() -> dict[str, Any]:
-    path = DATA_DIR / "routing_defaults.yaml"
+def _load_json(name: str) -> dict[str, Any]:
+    path = DATA_DIR / name
     with path.open(encoding="utf-8") as f:
-        return yaml.safe_load(f)
+        return json.load(f)
+
+
+def load_routing_yaml() -> dict[str, Any]:
+    """Routing matrica (JSON; ime funkcije zadržano radi kompatibilnosti)."""
+    return _load_json("routing_defaults.json")
 
 
 def load_planned_plants() -> list[dict[str, Any]]:
-    path = DATA_DIR / "planned_plants.yaml"
-    with path.open(encoding="utf-8") as f:
-        data = yaml.safe_load(f)
+    data = _load_json("planned_plants.json")
     return list(data.get("plants", []))
 
 
