@@ -31,7 +31,7 @@ Prijava: GitHub browser login ili Personal Access Token (repo scope).
 ## Streamlit Community Cloud
 
 1. [share.streamlit.io](https://share.streamlit.io) → **New app** → odaberi repo i granu `main`.
-2. **Main file path:** `app.py`
+2. **Main file path:** `streamlit_app.py` (preporučeno) ili `app.py`
 3. **Requirements:** `requirements.txt` (automatski)
 4. Deploy — aplikacija ne treba tajne (`secrets.toml` nije potreban).
 
