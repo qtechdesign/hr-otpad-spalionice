@@ -386,7 +386,7 @@ def _page_methodology():
 ### Metodologija
 
 1. **Ulaz:** agregirane kategorije nastanka otpada (ISGO, ~7,09 Mt u 2022.) skalirane projekcijom rasta do ciljne godine.
-2. **Routing:** za svaku kategoriju udjeli recikliranja, komposta/MBO, R1, odlaganja i ostalog (zbroj = 1). Scenarij prepisuje zadane udjele (`data/routing_defaults.yaml`).
+2. **Routing:** za svaku kategoriju udjeli recikliranja, komposta/MBO, R1, odlaganja i ostalog (zbroj = 1). Scenarij prepisuje zadane udjele (`data/routing_defaults.json`).
 3. **Q_R1:** suma masa usmjerenih u R1; kategorije označene kao ne-R1 (npr. mineralni, metali) preusmjeravaju R1 u odlaganje.
 4. **Dimenzioniranje:**
    - `Q_ostalo = max(0, Q_R1 − kapacitet_planiranih energana)`
