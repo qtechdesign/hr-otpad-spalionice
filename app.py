@@ -11,7 +11,6 @@ if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
 import pandas as pd
-import plotly.express as px
 import streamlit as st
 
 from src.classification import apply_routing
@@ -34,8 +33,6 @@ from src.data_loader import (
 )
 from src.incinerator_model import size_incinerators
 from src.regional import allocate_r1_by_county, suggest_regional_hubs
-
-PLOTLY_CONFIG = {"displayModeBar": False, "responsive": True}
 
 st.set_page_config(
     page_title="Otpad RH — spalionice",
@@ -240,6 +237,12 @@ def _page_overview(classification, sizing, scenario, target_year, hubs, params):
     c3.metric("Planirano energana", fmt_kt(sizing.q_planned_t))
     c4.metric("Broj dodatnih energana", sizing.n_plants)
 
+    st.success(
+        f"Za Q_R1 {fmt_kt(classification.q_r1_t)} i postrojenja od "
+        f"{params['plant_capacity_kt']:.0f} kt/a treba još {sizing.n_plants} energana "
+        f"({len(hubs)} regionalnih čvorova). Planirano već pokriva {fmt_kt(sizing.q_planned_t)}."
+    )
+
     if sizing.below_economic_threshold:
         st.warning(sizing.message)
     else:
@@ -251,13 +254,8 @@ def _page_overview(classification, sizing, scenario, target_year, hubs, params):
             for k, v in classification.totals_by_route.items()
         ]
     )
-    fig_routes = px.pie(
-        route_df,
-        names="Ruta",
-        values="Masa (t/a)",
-        title="Raspodjela po rutama gospodarenja",
-    )
-    st.plotly_chart(fig_routes, use_container_width=True, config=PLOTLY_CONFIG)
+    chart = route_df.set_index("Ruta")
+    st.bar_chart(chart, use_container_width=True)
 
     st.subheader("Izvoz rezultata")
     export_csv = classification.by_category.to_csv(index=False).encode("utf-8")
@@ -280,15 +278,7 @@ def _page_overview(classification, sizing, scenario, target_year, hubs, params):
 def _page_types(categories, classification, routing, scenario):
     st.subheader("Kategorije otpada (ISGO agregat, bazna struktura 2022 + projekcija)")
     bar_df = categories[["kategorija_hr", "masa_t"]].copy()
-    fig_bar = px.bar(
-        bar_df,
-        x="kategorija_hr",
-        y="masa_t",
-        labels={"masa_t": "Masa (t/a)", "kategorija_hr": "Kategorija"},
-        title="Nastali otpad po kategorijama",
-    )
-    fig_bar.update_layout(xaxis_tickangle=-35)
-    st.plotly_chart(fig_bar, use_container_width=True, config=PLOTLY_CONFIG)
+    st.bar_chart(bar_df.set_index("kategorija_hr"), use_container_width=True)
 
     st.dataframe(classification.by_category, use_container_width=True, hide_index=True)
 
@@ -318,15 +308,7 @@ def _page_municipal(ref, categories, target_year):
     st.subheader("Komunalni otpad — referentna vremenska serija (ISGO)")
     muni = ref["municipal"].dropna(subset=["nastalo_t"])
     if len(muni):
-        fig_m = px.line(
-            muni,
-            x="godina",
-            y="nastalo_t",
-            markers=True,
-            labels={"nastalo_t": "Nastalo (t/a)", "godina": "Godina"},
-            title="Nastali komunalni otpad u RH",
-        )
-        st.plotly_chart(fig_m, use_container_width=True, config=PLOTLY_CONFIG)
+        st.line_chart(muni.set_index("godina")[["nastalo_t"]], use_container_width=True)
 
     m2024 = ref["municipal"].query("godina == 2024")
     if len(m2024):
@@ -371,8 +353,7 @@ def _page_plants(ref, sizing, plant_capacity_kt, utilization):
             "t/a": [sizing.q_r1_t, sizing.q_planned_t, sizing.q_remaining_t],
         }
     )
-    fig_load = px.bar(load_df, x="Stavka", y="t/a", title="Opterećenje vs planirani kapacitet")
-    st.plotly_chart(fig_load, use_container_width=True, config=PLOTLY_CONFIG)
+    st.bar_chart(load_df.set_index("Stavka"), use_container_width=True)
 
 
 def _page_regions(ref, q_for_regions, hubs):
@@ -396,14 +377,7 @@ def _page_regions(ref, q_for_regions, hubs):
     st.markdown("#### Regionalni čvorovi (heuristika)")
     st.dataframe(pd.DataFrame(hub_rows), use_container_width=True, hide_index=True)
 
-    fig_reg = px.bar(
-        pd.DataFrame(hub_rows),
-        x="Regija",
-        y="Q_R1 (t/a)",
-        title="Alokacija R1 po regijama",
-    )
-    fig_reg.update_layout(xaxis_tickangle=-25)
-    st.plotly_chart(fig_reg, use_container_width=True, config=PLOTLY_CONFIG)
+    st.bar_chart(pd.DataFrame(hub_rows).set_index("Regija")[["Q_R1 (t/a)"]], use_container_width=True)
 
 
 def _page_methodology():

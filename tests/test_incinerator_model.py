@@ -1,5 +1,6 @@
-import pytest
+import pandas as pd
 
+from src.data_loader import _as_bool
 from src.incinerator_model import size_incinerators, sum_planned_capacity
 
 
@@ -41,6 +42,12 @@ def test_size_no_additional_when_planned_covers():
     result = size_incinerators(q_r1_t=80_000, plants=plants, plant_capacity_kt=100, utilization=1.0)
     assert result.n_plants == 0
     assert result.q_remaining_t == 0
+
+
+def test_csv_false_is_not_true():
+    series = pd.Series(["true", "false", "False", "1"])
+    flags = _as_bool(series).tolist()
+    assert flags == [True, False, False, True]
 
 
 def test_economic_threshold_flag():

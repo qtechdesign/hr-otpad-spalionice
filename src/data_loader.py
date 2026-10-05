@@ -15,10 +15,15 @@ def _read_csv(name: str) -> pd.DataFrame:
     return pd.read_csv(path)
 
 
+def _as_bool(series: pd.Series) -> pd.Series:
+    """CSV 'false' nije Python False ako se koristi astype(bool) na tekstu."""
+    return series.astype(str).str.strip().str.lower().isin(["true", "1", "yes", "da"])
+
+
 def load_waste_categories() -> pd.DataFrame:
     df = _read_csv("reference_waste_by_category.csv")
-    df["ukljuci_u_model"] = df["ukljuci_u_model"].astype(bool)
-    df["r1_eligible_default"] = df["r1_eligible_default"].astype(bool)
+    df["ukljuci_u_model"] = _as_bool(df["ukljuci_u_model"])
+    df["r1_eligible_default"] = _as_bool(df["r1_eligible_default"])
     return df
 
 
